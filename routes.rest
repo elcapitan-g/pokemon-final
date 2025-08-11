@@ -1,0 +1,51 @@
+# Sharks API - REST Endpoints
+
+### Get all sharks
+GET http://localhost:3000/sharks
+
+---
+
+### Get shark by ID
+GET http://localhost:3000/sharks/{id}
+
+Example:
+GET http://localhost:3000/sharks/687cbfa10aeb7f45b3419db4
+
+---
+
+### Create a new shark
+POST http://localhost:3000/sharks
+Content-Type: application/json
+
+Request Body:
+{
+  "name": "Blacktip Reef Shark",
+  "scientific_name": "Carcharhinus melanopterus",
+  "size_meters": 1.8,
+  "num_human_kills": 1,
+  "habitat": "coastal",
+  "aggressiveness": "moderate",
+  "order": "Carcharhiniformes"
+}
+
+---
+
+### Update a shark
+PUT http://localhost:3000/sharks/{id}
+Content-Type: application/json
+
+Request Body:
+{
+  "name": "Blacktip Reef Shark",
+  "scientific_name": "Carcharhinus melanopterus",
+  "size_meters": 1.8,
+  "num_human_kills": 1,
+  "habitat": "coastal",
+  "aggressiveness": "moderate",
+  "order": "Carcharhiniformes"
+}
+
+---
+
+### Delete a shark
+DELETE http://localhost:3000/sharks/{id}

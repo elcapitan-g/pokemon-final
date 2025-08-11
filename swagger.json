@@ -1,0 +1,254 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Sharks API",
+    "description": "API sharks",
+    "version": "1.0.0"
+  },
+  "host": "shark-swuw.onrender.com",
+  "basePath": "/",
+  "schemes": ["https"],
+  "paths": {
+    "/": {
+      "get": {
+        "description": "Hello SHARKS!",
+        "responses": {
+          "200": {
+            "description": "Hello SHARKS!"
+          }
+        }
+      }
+    },
+    "/sharks/": {
+      "get": {
+        "tags": ["Sharks"],
+        "description": "Get all sharks",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "List of all sharks"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Sharks"],
+        "description": "Create a new shark",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "shark",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "scientific_name": { "type": "string" },
+                "size_meters": { "type": "number" },
+                "num_human_kills": { "type": "number" },
+                "habitat": {
+                  "type": "string",
+                  "enum": ["coastal", "pelagic", "deep ocean"]
+                },
+                "aggressiveness": { "type": "string" },
+                "order": { "type": "string" }
+              },
+              "required": [
+                "name",
+                "scientific_name",
+                "size_meters",
+                "habitat",
+                "order"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Shark created successfully"
+          }
+        }
+      }
+    },
+    "/sharks/{id}": {
+      "get": {
+        "tags": ["Sharks"],
+        "description": "Get shark by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Shark found" },
+          "404": { "description": "Shark not found" }
+        }
+      },
+      "put": {
+        "tags": ["Sharks"],
+        "description": "Update shark by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "shark",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "scientific_name": { "type": "string" },
+                "size_meters": { "type": "number" },
+                "num_human_kills": { "type": "number" },
+                "habitat": {
+                  "type": "string",
+                  "enum": ["coastal", "pelagic", "deep ocean"]
+                },
+                "aggressiveness": { "type": "string" },
+                "order": { "type": "string" }
+              },
+              "required": [
+                "name",
+                "scientific_name",
+                "size_meters",
+                "habitat",
+                "order"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Shark updated successfully" },
+          "404": { "description": "Shark not found" }
+        }
+      },
+      "delete": {
+        "tags": ["Sharks"],
+        "description": "Delete shark by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Shark deleted successfully" },
+          "404": { "description": "Shark not found" }
+        }
+      }
+    },
+    "/attacks": {
+      "get": {
+        "tags": ["Attacks"],
+        "description": "Get all shark attacks by ocean",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "List of shark attacks per ocean"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Attacks"],
+        "description": "Create a new shark attack record",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "attack",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ocean": {
+                  "type": "string",
+                  "enum": ["Pacific", "Atlantic", "Indian", "Arctic", "Southern"]
+                },
+                "num_attacks": {
+                  "type": "number"
+                }
+              },
+              "required": ["ocean", "num_attacks"]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Shark attack record created successfully"
+          }
+        }
+      }
+    },
+    
+    "/attacks/{id}": {
+      "put": {
+        "tags": ["Attacks"],
+        "description": "Update shark attack record by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "attack",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ocean": {
+                  "type": "string",
+                  "enum": ["Pacific", "Atlantic", "Indian", "Arctic", "Southern"]
+                },
+                "num_attacks": {
+                  "type": "number"
+                }
+              },
+              "required": ["ocean", "num_attacks"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Shark attack record updated successfully"
+          },
+          "404": {
+            "description": "Record not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Attacks"],
+        "description": "Delete shark attack record by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Shark attack record deleted successfully"
+          },
+          "404": {
+            "description": "Record not found"
+          }
+        }
+      }
+    }
+  }
+}
