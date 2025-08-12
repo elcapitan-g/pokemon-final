@@ -1,7 +1,7 @@
 const mongodb = require('../data/database');
 const ObjectId = require('mongodb').ObjectId;
 
-const DB_NAME = 'pokemon'; // Replace with your actual database name
+const DB_NAME = 'pokemon'; // Your database name
 
 // Get all cards
 const getAll = async (req, res) => {
@@ -41,10 +41,10 @@ const createCard = async (req, res) => {
   try {
     const card = {
       name: req.body.name,
-      type: req.body.type,
+      setName: req.body.setName,
       rarity: req.body.rarity,
-      set: req.body.set,
-      condition: req.body.condition
+      price: req.body.price,
+      release_year: req.body.release_year,
     };
     const response = await mongodb
       .getDatabase()
@@ -67,10 +67,10 @@ const updateCard = async (req, res) => {
     const cardId = new ObjectId(req.params.id);
     const card = {
       name: req.body.name,
-      type: req.body.type,
+      setName: req.body.setName,
       rarity: req.body.rarity,
-      set: req.body.set,
-      condition: req.body.condition
+      price: req.body.price,
+      release_year: req.body.release_year,
     };
     const response = await mongodb
       .getDatabase()
