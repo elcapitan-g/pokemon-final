@@ -5,6 +5,16 @@
     "version": "1.0.0",
     "description": "API for managing Pokémon cards and master set prices."
   },
+  "tags": [
+    {
+      "name": "Your Pokemon Cards",
+      "description": "Manage your personal Pokémon card collection."
+    },
+    {
+      "name": "Master Sets",
+      "description": "Manage and view master set price data."
+    }
+  ],
   "paths": {
     "/cards": {
       "get": {
