@@ -29,6 +29,24 @@
       "post": {
         "tags": ["Your Pokemon Cards"],
         "summary": "Add a new Pokémon card to your collection",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string", "example": "Pikachu" },
+                  "setName": { "type": "string", "example": "Base Set" },
+                  "rarity": { "type": "string", "example": "Common" },
+                  "price": { "type": "number", "example": 12.5 },
+                  "release_year": { "type": "integer", "example": 1999 }
+                },
+                "required": ["name", "setName", "rarity", "price"]
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "Card created successfully"
@@ -52,6 +70,24 @@
       "put": {
         "tags": ["Your Pokemon Cards"],
         "summary": "Update one of your Pokémon card",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string", "example": "Pikachu" },
+                  "setName": { "type": "string", "example": "Base Set" },
+                  "rarity": { "type": "string", "example": "Common" },
+                  "price": { "type": "number", "example": 12.5 },
+                  "release_year": { "type": "integer", "example": 1999 }
+                },
+                "required": ["name", "setName", "rarity", "price"]
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Card updated"
@@ -81,6 +117,22 @@
       "post": {
         "tags": ["Master Sets"],
         "summary": "Add a new master set price",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string", "example": "Base Set" },
+                  "price": { "type": "number", "example": 100.0 },
+                  "release_year": { "type": "integer", "example": 1999 }
+                },
+                "required": ["name", "price"]
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "Master set created"
@@ -104,6 +156,22 @@
       "put": {
         "tags": ["Master Sets"],
         "summary": "Update a master set price",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string", "example": "Base Set" },
+                  "price": { "type": "number", "example": 100.0 },
+                  "release_year": { "type": "integer", "example": 1999 }
+                },
+                "required": ["name", "price"]
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Master set updated"
