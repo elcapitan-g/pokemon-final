@@ -9,7 +9,7 @@ const getAll = async (req, res) => {
     const result = await mongodb
       .getDatabase()
       .db(DB_NAME)
-      .collection('cards')
+      .collection('pokemon')
       .find();
     const lists = await result.toArray();
     res.setHeader('Content-Type', 'application/json');
@@ -26,7 +26,7 @@ const getSingle = async (req, res) => {
     const result = await mongodb
       .getDatabase()
       .db(DB_NAME)
-      .collection('cards')
+      .collection('pokemon')
       .find({ _id: cardId });
     const lists = await result.toArray();
     res.setHeader('Content-Type', 'application/json');
@@ -49,7 +49,7 @@ const createCard = async (req, res) => {
     const response = await mongodb
       .getDatabase()
       .db(DB_NAME)
-      .collection('cards')
+      .collection('pokemon')
       .insertOne(card);
     if (response.acknowledged) {
       res.status(201).json(response);
@@ -75,7 +75,7 @@ const updateCard = async (req, res) => {
     const response = await mongodb
       .getDatabase()
       .db(DB_NAME)
-      .collection('cards')
+      .collection('pokemon')
       .replaceOne({ _id: cardId }, card);
     if (response.modifiedCount > 0) {
       res.status(204).send();
@@ -94,7 +94,7 @@ const deleteCard = async (req, res) => {
     const response = await mongodb
       .getDatabase()
       .db(DB_NAME)
-      .collection('cards')
+      .collection('pokemon')
       .deleteOne({ _id: cardId });
     if (response.deletedCount > 0) {
       res.status(204).send();
