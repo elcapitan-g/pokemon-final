@@ -55,6 +55,17 @@
       }
     },
     "/cards/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the Pokémon card",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "get": {
         "tags": ["Your Pokemon Cards"],
         "summary": "Get a Pokémon card by ID",
@@ -141,6 +152,17 @@
       }
     },
     "/masterSets/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the master set",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "get": {
         "tags": ["Master Sets"],
         "summary": "Get a master set price by ID",
