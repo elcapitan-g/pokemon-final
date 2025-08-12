@@ -5,12 +5,12 @@ const router = require('express').Router();
 router.use('/', require('./swagger'));
 
 //router.get('/', (req, res) => {
-    //#sagger.tage['Hello Shark World']
-  //res.send('Hello Shark World');
+    //#sagger.tage['Gotta catch em all!']
+  //res.send('Gotta cathc em all');
 //});
 
-router.use('/sharks', require('./sharks'));
-router.use('/attacks', require('./attacks'));
+router.use('/cards', require('./cards'));
+router.use('/masterSets', require('./masterSets'));
 
 router.get('/login', passport.authenticate('github'), (req, rest) => {});
 

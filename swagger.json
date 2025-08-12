@@ -1,251 +1,101 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
-    "title": "Sharks API",
-    "description": "API sharks",
-    "version": "1.0.0"
+    "title": "Pokémon Card Collection API",
+    "version": "1.0.0",
+    "description": "API for managing Pokémon cards and master set prices."
   },
-  "host": "shark-swuw.onrender.com",
-  "basePath": "/",
-  "schemes": ["https"],
   "paths": {
-    "/": {
+    "/cards": {
       "get": {
-        "description": "Hello SHARKS!",
+        "summary": "Get all Pokémon cards",
         "responses": {
           "200": {
-            "description": "Hello SHARKS!"
-          }
-        }
-      }
-    },
-    "/sharks/": {
-      "get": {
-        "tags": ["Sharks"],
-        "description": "Get all sharks",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "List of all sharks"
+            "description": "List of Pokémon cards"
           }
         }
       },
       "post": {
-        "tags": ["Sharks"],
-        "description": "Create a new shark",
-        "consumes": ["application/json"],
-        "parameters": [
-          {
-            "name": "shark",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": { "type": "string" },
-                "scientific_name": { "type": "string" },
-                "size_meters": { "type": "number" },
-                "num_human_kills": { "type": "number" },
-                "habitat": {
-                  "type": "string",
-                  "enum": ["coastal", "pelagic", "deep ocean"]
-                },
-                "aggressiveness": { "type": "string" },
-                "order": { "type": "string" }
-              },
-              "required": [
-                "name",
-                "scientific_name",
-                "size_meters",
-                "habitat",
-                "order"
-              ]
-            }
-          }
-        ],
+        "summary": "Add a new Pokémon card",
         "responses": {
           "201": {
-            "description": "Shark created successfully"
+            "description": "Card created successfully"
           }
         }
       }
     },
-    "/sharks/{id}": {
+    "/cards/{id}": {
       "get": {
-        "tags": ["Sharks"],
-        "description": "Get shark by ID",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
+        "summary": "Get a Pokémon card by ID",
         "responses": {
-          "200": { "description": "Shark found" },
-          "404": { "description": "Shark not found" }
+          "200": {
+            "description": "Pokémon card found"
+          },
+          "404": {
+            "description": "Card not found"
+          }
         }
       },
       "put": {
-        "tags": ["Sharks"],
-        "description": "Update shark by ID",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "shark",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": { "type": "string" },
-                "scientific_name": { "type": "string" },
-                "size_meters": { "type": "number" },
-                "num_human_kills": { "type": "number" },
-                "habitat": {
-                  "type": "string",
-                  "enum": ["coastal", "pelagic", "deep ocean"]
-                },
-                "aggressiveness": { "type": "string" },
-                "order": { "type": "string" }
-              },
-              "required": [
-                "name",
-                "scientific_name",
-                "size_meters",
-                "habitat",
-                "order"
-              ]
-            }
-          }
-        ],
+        "summary": "Update a Pokémon card",
         "responses": {
-          "200": { "description": "Shark updated successfully" },
-          "404": { "description": "Shark not found" }
+          "200": {
+            "description": "Card updated"
+          }
         }
       },
       "delete": {
-        "tags": ["Sharks"],
-        "description": "Delete shark by ID",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
+        "summary": "Delete a Pokémon card",
         "responses": {
-          "200": { "description": "Shark deleted successfully" },
-          "404": { "description": "Shark not found" }
+          "200": {
+            "description": "Card deleted"
+          }
         }
       }
     },
-    "/attacks": {
+    "/masterSets": {
       "get": {
-        "tags": ["Attacks"],
-        "description": "Get all shark attacks by ocean",
-        "produces": ["application/json"],
+        "summary": "Get all master set prices",
         "responses": {
           "200": {
-            "description": "List of shark attacks per ocean"
+            "description": "List of master sets"
           }
         }
       },
       "post": {
-        "tags": ["Attacks"],
-        "description": "Create a new shark attack record",
-        "consumes": ["application/json"],
-        "parameters": [
-          {
-            "name": "attack",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "ocean": {
-                  "type": "string",
-                  "enum": ["Pacific", "Atlantic", "Indian", "Arctic", "Southern"]
-                },
-                "num_attacks": {
-                  "type": "number"
-                }
-              },
-              "required": ["ocean", "num_attacks"]
-            }
-          }
-        ],
+        "summary": "Add a new master set price",
         "responses": {
           "201": {
-            "description": "Shark attack record created successfully"
+            "description": "Master set created"
           }
         }
       }
     },
-    
-    "/attacks/{id}": {
-      "put": {
-        "tags": ["Attacks"],
-        "description": "Update shark attack record by ID",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "attack",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "ocean": {
-                  "type": "string",
-                  "enum": ["Pacific", "Atlantic", "Indian", "Arctic", "Southern"]
-                },
-                "num_attacks": {
-                  "type": "number"
-                }
-              },
-              "required": ["ocean", "num_attacks"]
-            }
-          }
-        ],
+    "/masterSets/{id}": {
+      "get": {
+        "summary": "Get a master set price by ID",
         "responses": {
           "200": {
-            "description": "Shark attack record updated successfully"
+            "description": "Master set found"
           },
           "404": {
-            "description": "Record not found"
+            "description": "Master set not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a master set price",
+        "responses": {
+          "200": {
+            "description": "Master set updated"
           }
         }
       },
       "delete": {
-        "tags": ["Attacks"],
-        "description": "Delete shark attack record by ID",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
+        "summary": "Delete a master set price",
         "responses": {
           "200": {
-            "description": "Shark attack record deleted successfully"
-          },
-          "404": {
-            "description": "Record not found"
+            "description": "Master set deleted"
           }
         }
       }

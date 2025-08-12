@@ -1,69 +1,113 @@
 const mongodb = require('../data/database');
 const ObjectId = require('mongodb').ObjectId;
 
-// Get all attacks
+// Get all master sets
 const getAll = async (req, res) => {
-  const result = await mongodb.getDatabase().db().collection('attacks').find();
-  const attacks = await result.toArray();
-  res.status(200).json(attacks);
+  try {
+    const result = await mongodb
+      .getDb()
+      .db()
+      .collection('masterSets')
+      .find();
+    result.toArray().then((lists) => {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(200).json(lists);
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
-// Get attack by ID
+// Get single master set
 const getSingle = async (req, res) => {
-  const attackId = new ObjectId(req.params.id);
-  const result = await mongodb.getDatabase().db().collection('attacks').findOne({ _id: attackId });
-  if (!result) {
-    return res.status(404).json({ message: 'Attack record not found' });
-  }
-  res.status(200).json(result);
-};
-
-// Create a new attack record
-const createAttack = async (req, res) => {
-  const attack = {
-    ocean: req.body.ocean,
-    num_attacks: req.body.num_attacks
-  };
-
-  const response = await mongodb.getDatabase().db().collection('attacks').insertOne(attack);
-  if (response.acknowledged) {
-    res.status(201).json(response);
-  } else {
-    res.status(500).json({ error: 'Failed to create attack record' });
+  try {
+    const setId = new ObjectId(req.params.id);
+    const result = await mongodb
+      .getDb()
+      .db()
+      .collection('masterSets')
+      .find({ _id: setId });
+    result.toArray().then((lists) => {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(200).json(lists[0]);
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
 
-// Update an attack record
-const updateAttack = async (req, res) => {
-  const attackId = new ObjectId(req.params.id);
-  const attack = {
-    ocean: req.body.ocean,
-    num_attacks: req.body.num_attacks
-  };
-
-  const response = await mongodb.getDatabase().db().collection('attacks').replaceOne({ _id: attackId }, attack);
-  if (response.modifiedCount > 0) {
-    res.status(200).send();
-  } else {
-    res.status(500).json({ error: 'Failed to update attack record' });
+// Create new master set
+const createMasterSet = async (req, res) => {
+  try {
+    const masterSet = {
+      name: req.body.name,
+      releaseDate: req.body.releaseDate,
+      totalCards: req.body.totalCards,
+      price: req.body.price
+    };
+    const response = await mongodb
+      .getDb()
+      .db()
+      .collection('masterSets')
+      .insertOne(masterSet);
+    if (response.acknowledged) {
+      res.status(201).json(response);
+    } else {
+      res.status(500).json({ error: 'Some error occurred while creating the master set.' });
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
 
-// Delete an attack record
-const deleteAttack = async (req, res) => {
-  const attackId = new ObjectId(req.params.id);
-  const response = await mongodb.getDatabase().db().collection('attacks').deleteOne({ _id: attackId });
-  if (response.deletedCount > 0) {
-    res.status(200).send();
-  } else {
-    res.status(500).json({ error: 'Failed to delete attack record' });
+// Update master set
+const updateMasterSet = async (req, res) => {
+  try {
+    const setId = new ObjectId(req.params.id);
+    const masterSet = {
+      name: req.body.name,
+      releaseDate: req.body.releaseDate,
+      totalCards: req.body.totalCards,
+      price: req.body.price
+    };
+    const response = await mongodb
+      .getDb()
+      .db()
+      .collection('masterSets')
+      .replaceOne({ _id: setId }, masterSet);
+    if (response.modifiedCount > 0) {
+      res.status(204).send();
+    } else {
+      res.status(500).json({ error: 'Some error occurred while updating the master set.' });
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// Delete master set
+const deleteMasterSet = async (req, res) => {
+  try {
+    const setId = new ObjectId(req.params.id);
+    const response = await mongodb
+      .getDb()
+      .db()
+      .collection('masterSets')
+      .deleteOne({ _id: setId });
+    if (response.deletedCount > 0) {
+      res.status(204).send();
+    } else {
+      res.status(500).json({ error: 'Some error occurred while deleting the master set.' });
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
 
 module.exports = {
   getAll,
   getSingle,
-  createAttack,
-  updateAttack,
-  deleteAttack
+  createMasterSet,
+  updateMasterSet,
+  deleteMasterSet
 };

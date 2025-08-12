@@ -1,14 +1,48 @@
-module.exports = (req, res, next) => {
-  const { name, scientific_name, size_meters, num_human_kills, habitat, aggressiveness, order } = req.body;
+const saveCard = (req, res, next) => {
+  let { name, setName, rarity, price, release_year } = req.body;
 
-  if (!name || !scientific_name || !size_meters || !habitat || !order) {
-    return res.status(400).json({ error: 'Missing required shark fields.' });
+  // Trim strings if they exist
+  if (typeof name === 'string') name = name.trim();
+  if (typeof setName === 'string') setName = setName.trim();
+  if (typeof rarity === 'string') rarity = rarity.trim();
+
+  // Validate required string fields
+  if (!name) {
+    return res.status(400).json({ error: 'Card name is required' });
   }
 
-  const validHabitats = ['coastal', 'pelagic', 'deep ocean'];
-  if (!validHabitats.includes(habitat)) {
-    return res.status(400).json({ error: 'Invalid habitat value.' });
+  if (!setName) {
+    return res.status(400).json({ error: 'Set name is required' });
   }
 
-  next(); //this aint it cheif
+  if (!rarity) {
+    return res.status(400).json({ error: 'Rarity is required' });
+  }
+
+  // Validate price
+  if (price === undefined || typeof price !== 'number' || price < 0) {
+    return res.status(400).json({ error: 'Valid price is required' });
+  }
+
+  // Validate release_year (optional but if provided must be reasonable)
+  if (release_year !== undefined) {
+    if (
+      typeof release_year !== 'number' ||
+      !Number.isInteger(release_year) ||
+      release_year < 1980 ||
+      release_year > new Date().getFullYear() + 1
+    ) {
+      return res.status(400).json({ error: 'Valid release_year is required' });
+    }
+  }
+
+  // Update req.body with trimmed values
+  req.body.name = name;
+  req.body.setName = setName;
+  req.body.rarity = rarity;
+  req.body.release_year = release_year;
+
+  next();
 };
+
+module.exports = { saveCard };

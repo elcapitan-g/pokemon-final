@@ -1,105 +1,115 @@
 const mongodb = require('../data/database');
 const ObjectId = require('mongodb').ObjectId;
 
-// Get all sharks
+// Get all cards
 const getAll = async (req, res) => {
-  //#swagger.tags=['Sharks']
   try {
-    const result = await mongodb.getDatabase().db().collection('sharks').find();
-    const sharks = await result.toArray();
-    res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(sharks);
+    const result = await mongodb
+      .getDb()
+      .db()
+      .collection('cards')
+      .find();
+    result.toArray().then((lists) => {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(200).json(lists);
+    });
   } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch sharks.' });
+    res.status(500).json({ message: err.message });
   }
 };
 
-// Get one shark by ID
+// Get single card
 const getSingle = async (req, res) => {
-  //#swagger.tags=['Sharks']
   try {
-    const sharkId = new ObjectId(req.params.id);
-    const result = await mongodb.getDatabase().db().collection('sharks').find({ _id: sharkId });
-    const sharks = await result.toArray();
-    if (!sharks[0]) {
-      return res.status(404).json({ error: 'Shark not found' });
-    }
-    res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(sharks[0]);
+    const cardId = new ObjectId(req.params.id);
+    const result = await mongodb
+      .getDb()
+      .db()
+      .collection('cards')
+      .find({ _id: cardId });
+    result.toArray().then((lists) => {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(200).json(lists[0]);
+    });
   } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch shark.' });
+    res.status(500).json({ message: err.message });
   }
 };
 
-// Create a new shark
-const createShark = async (req, res) => {
-  //#swagger.tags=['Sharks']
+// Create new card
+const createCard = async (req, res) => {
   try {
-    const shark = {
+    const card = {
       name: req.body.name,
-      scientific_name: req.body.scientific_name,
-      size_meters: req.body.size_meters,
-      num_human_kills: req.body.num_human_kills,
-      habitat: req.body.habitat,
-      aggressiveness: req.body.aggressiveness,
-      order: req.body.order
+      type: req.body.type,
+      rarity: req.body.rarity,
+      set: req.body.set,
+      condition: req.body.condition
     };
-    const response = await mongodb.getDatabase().db().collection('sharks').insertOne(shark);
+    const response = await mongodb
+      .getDb()
+      .db()
+      .collection('cards')
+      .insertOne(card);
     if (response.acknowledged) {
       res.status(201).json(response);
     } else {
-      res.status(500).json({ error: 'Failed to create shark.' });
+      res.status(500).json({ error: 'Some error occurred while creating the card.' });
     }
   } catch (err) {
-    res.status(500).json({ error: 'Server error while creating shark.' });
+    res.status(500).json({ message: err.message });
   }
 };
 
-// Update a shark
-const updateShark = async (req, res) => {
-  //#swagger.tags=['Sharks']
+// Update card
+const updateCard = async (req, res) => {
   try {
-    const sharkId = new ObjectId(req.params.id);
-    const shark = {
+    const cardId = new ObjectId(req.params.id);
+    const card = {
       name: req.body.name,
-      scientific_name: req.body.scientific_name,
-      size_meters: req.body.size_meters,
-      num_human_kills: req.body.num_human_kills,
-      habitat: req.body.habitat,
-      aggressiveness: req.body.aggressiveness,
-      order: req.body.order
+      type: req.body.type,
+      rarity: req.body.rarity,
+      set: req.body.set,
+      condition: req.body.condition
     };
-    const response = await mongodb.getDatabase().db().collection('sharks').replaceOne({ _id: sharkId }, shark);
+    const response = await mongodb
+      .getDb()
+      .db()
+      .collection('cards')
+      .replaceOne({ _id: cardId }, card);
     if (response.modifiedCount > 0) {
-      res.status(200).send();
+      res.status(204).send();
     } else {
-      res.status(404).json({ error: 'Shark not found.' });
+      res.status(500).json({ error: 'Some error occurred while updating the card.' });
     }
   } catch (err) {
-    res.status(500).json({ error: 'Failed to update shark.' });
+    res.status(500).json({ message: err.message });
   }
 };
 
-// Delete a shark
-const deleteShark = async (req, res) => {
-  //#swagger.tags=['Sharks']
+// Delete card
+const deleteCard = async (req, res) => {
   try {
-    const sharkId = new ObjectId(req.params.id);
-    const response = await mongodb.getDatabase().db().collection('sharks').deleteOne({ _id: sharkId });
+    const cardId = new ObjectId(req.params.id);
+    const response = await mongodb
+      .getDb()
+      .db()
+      .collection('cards')
+      .deleteOne({ _id: cardId });
     if (response.deletedCount > 0) {
-      res.status(200).send();
+      res.status(204).send();
     } else {
-      res.status(404).json({ error: 'Shark not found.' });
+      res.status(500).json({ error: 'Some error occurred while deleting the card.' });
     }
   } catch (err) {
-    res.status(500).json({ error: 'Failed to delete shark.' });
+    res.status(500).json({ message: err.message });
   }
 };
 
 module.exports = {
   getAll,
   getSingle,
-  createShark,
-  updateShark,
-  deleteShark
+  createCard,
+  updateCard,
+  deleteCard
 };

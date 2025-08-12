@@ -1,15 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const attacksController = require('../controllers/attacks');
-const validateAttack = require('../middleware/validateAttack');
 
-const { isAuthenticated } = require("../middleware/authenticate");
+const masterSetsController = require('../controllers/masterSets');
+const validation = require('../middleware/validateMasterSet');
 
-router.get('/', attacksController.getAll);
-router.get('/:id', attacksController.getSingle);
+// GET all master sets
+router.get('/', masterSetsController.getAll);
 
-router.post('/', isAuthenticated, validateAttack, attacksController.createAttack);
-router.put('/:id', isAuthenticated,  validateAttack, attacksController.updateAttack);
-router.delete('/:id', isAuthenticated, attacksController.deleteAttack);
+// GET single master set by ID
+router.get('/:id', masterSetsController.getSingle);
+
+// POST create new master set
+router.post('/', validation.saveMasterSet, masterSetsController.createMasterSet);
+
+// PUT update master set by ID
+router.put('/:id', validation.saveMasterSet, masterSetsController.updateMasterSet);
+
+// DELETE master set by ID
+router.delete('/:id', masterSetsController.deleteMasterSet);
 
 module.exports = router;
