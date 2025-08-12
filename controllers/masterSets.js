@@ -7,7 +7,7 @@ const getAll = async (req, res) => {
     const result = await mongodb
       .getDatabase()
       .db()
-      .collection('masterSets')
+      .collection('mastersets')
       .find();
     result.toArray().then((lists) => {
       res.setHeader('Content-Type', 'application/json');
@@ -25,7 +25,7 @@ const getSingle = async (req, res) => {
     const result = await mongodb
       .getDatabase()
       .db()
-      .collection('masterSets')
+      .collection('mastersets')
       .find({ _id: setId });
     result.toArray().then((lists) => {
       res.setHeader('Content-Type', 'application/json');
@@ -48,7 +48,7 @@ const createMasterSet = async (req, res) => {
     const response = await mongodb
       .getDatabase()
       .db()
-      .collection('masterSets')
+      .collection('mastersets')
       .insertOne(masterSet);
     if (response.acknowledged) {
       res.status(201).json(response);
@@ -73,7 +73,7 @@ const updateMasterSet = async (req, res) => {
     const response = await mongodb
       .getDatabase()
       .db()
-      .collection('masterSets')
+      .collection('mastersets')
       .replaceOne({ _id: setId }, masterSet);
     if (response.modifiedCount > 0) {
       res.status(204).send();
@@ -92,7 +92,7 @@ const deleteMasterSet = async (req, res) => {
     const response = await mongodb
       .getDatabase()
       .db()
-      .collection('masterSets')
+      .collection('mastersets')
       .deleteOne({ _id: setId });
     if (response.deletedCount > 0) {
       res.status(204).send();
