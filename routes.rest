@@ -1,51 +1,49 @@
-# Sharks API - REST Endpoints
+# Pokémon Cards API - REST Endpoints
 
-### Get all sharks
-GET http://localhost:3000/sharks
+### Get all cards
+GET http://localhost:3000/cards
 
 ---
 
-### Get shark by ID
-GET http://localhost:3000/sharks/{id}
+### Get card by ID
+GET http://localhost:3000/cards/{id}
 
 Example:
-GET http://localhost:3000/sharks/687cbfa10aeb7f45b3419db4
+GET http://localhost:3000/cards/689b0d295b4433784ce8f96f
 
 ---
 
-### Create a new shark
-POST http://localhost:3000/sharks
+### Create a new card
+POST http://localhost:3000/cards
 Content-Type: application/json
 
 Request Body:
 {
-  "name": "Blacktip Reef Shark",
-  "scientific_name": "Carcharhinus melanopterus",
-  "size_meters": 1.8,
-  "num_human_kills": 1,
-  "habitat": "coastal",
-  "aggressiveness": "moderate",
-  "order": "Carcharhiniformes"
+  "name": "Charizard",
+  "set": "Base Set",
+  "rarity": "Holo Rare",
+  "number": "4/102",
+  "release_year": 1999,
+  "price_usd": 250.00
 }
 
 ---
 
-### Update a shark
-PUT http://localhost:3000/sharks/{id}
+### Update a card
+PUT http://localhost:3000/cards/{id}
 Content-Type: application/json
 
 Request Body:
 {
-  "name": "Blacktip Reef Shark",
-  "scientific_name": "Carcharhinus melanopterus",
-  "size_meters": 1.8,
-  "num_human_kills": 1,
-  "habitat": "coastal",
-  "aggressiveness": "moderate",
-  "order": "Carcharhiniformes"
+  "name": "Charizard",
+  "set": "Base Set",
+  "rarity": "Holo Rare",
+  "number": "4/102",
+  "release_year": 1999,
+  "price_usd": 250.00
 }
 
 ---
 
-### Delete a shark
-DELETE http://localhost:3000/sharks/{id}
+### Delete a card
+DELETE http://localhost:3000/cards/{id}
