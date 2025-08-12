@@ -1,18 +1,19 @@
 const mongodb = require('../data/database');
 const ObjectId = require('mongodb').ObjectId;
 
+const DB_NAME = 'pokemon'; // Replace with your actual database name
+
 // Get all cards
 const getAll = async (req, res) => {
   try {
     const result = await mongodb
       .getDatabase()
-      .db()
+      .db(DB_NAME)
       .collection('cards')
       .find();
-    result.toArray().then((lists) => {
-      res.setHeader('Content-Type', 'application/json');
-      res.status(200).json(lists);
-    });
+    const lists = await result.toArray();
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(lists);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -24,13 +25,12 @@ const getSingle = async (req, res) => {
     const cardId = new ObjectId(req.params.id);
     const result = await mongodb
       .getDatabase()
-      .db()
+      .db(DB_NAME)
       .collection('cards')
       .find({ _id: cardId });
-    result.toArray().then((lists) => {
-      res.setHeader('Content-Type', 'application/json');
-      res.status(200).json(lists[0]);
-    });
+    const lists = await result.toArray();
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(lists[0]);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -48,7 +48,7 @@ const createCard = async (req, res) => {
     };
     const response = await mongodb
       .getDatabase()
-      .db()
+      .db(DB_NAME)
       .collection('cards')
       .insertOne(card);
     if (response.acknowledged) {
@@ -74,7 +74,7 @@ const updateCard = async (req, res) => {
     };
     const response = await mongodb
       .getDatabase()
-      .db()
+      .db(DB_NAME)
       .collection('cards')
       .replaceOne({ _id: cardId }, card);
     if (response.modifiedCount > 0) {
@@ -93,7 +93,7 @@ const deleteCard = async (req, res) => {
     const cardId = new ObjectId(req.params.id);
     const response = await mongodb
       .getDatabase()
-      .db()
+      .db(DB_NAME)
       .collection('cards')
       .deleteOne({ _id: cardId });
     if (response.deletedCount > 0) {
