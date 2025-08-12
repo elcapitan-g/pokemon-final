@@ -1,6 +1,8 @@
 const mongodb = require('../data/database');
 const ObjectId = require('mongodb').ObjectId;
 
+const DB_NAME = 'pokemon'; 
+
 // Get all master sets
 const getAll = async (req, res) => {
   try {

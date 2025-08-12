@@ -1,7 +1,7 @@
 const mongodb = require('../data/database');
 const ObjectId = require('mongodb').ObjectId;
 
-const DB_NAME = 'pokemon'; // Your database name
+const DB_NAME = 'pokemon'; 
 
 // Get all cards
 const getAll = async (req, res) => {
