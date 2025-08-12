@@ -45,7 +45,11 @@ const createMasterSet = async (req, res) => {
       cards: req.body.cards,
       percent_completed: req.body.percent_completed
     };
-    const response = await mongodb.getDatabase().collection('mastersets').insertOne(masterSet);
+    const response = await mongodb
+      .getDatabase()
+      .db(DB_NAME)
+      .collection('mastersets')
+      .insertOne(masterSet);
     if (response.acknowledged) {
       res.status(201).json(response);
     } else {
@@ -68,7 +72,7 @@ const updateMasterSet = async (req, res) => {
     };
     const response = await mongodb
       .getDatabase()
-      .db()
+      .db(DB_NAME)
       .collection('mastersets')
       .replaceOne({ _id: setId }, masterSet);
     if (response.modifiedCount > 0) {
