@@ -8,6 +8,7 @@
   "paths": {
     "/cards": {
       "get": {
+        "tags": ["Pokemon Cards"],
         "summary": "Get all Pokémon cards",
         "responses": {
           "200": {
@@ -16,6 +17,7 @@
         }
       },
       "post": {
+        "tags": ["Pokemon Cards"],
         "summary": "Add a new Pokémon card",
         "responses": {
           "201": {
@@ -26,6 +28,7 @@
     },
     "/cards/{id}": {
       "get": {
+        "tags": ["Pokemon Cards"],
         "summary": "Get a Pokémon card by ID",
         "responses": {
           "200": {
@@ -37,6 +40,7 @@
         }
       },
       "put": {
+        "tags": ["Pokemon Cards"],
         "summary": "Update a Pokémon card",
         "responses": {
           "200": {
@@ -45,6 +49,7 @@
         }
       },
       "delete": {
+        "tags": ["Pokemon Cards"],
         "summary": "Delete a Pokémon card",
         "responses": {
           "200": {
@@ -55,6 +60,7 @@
     },
     "/masterSets": {
       "get": {
+        "tags": ["Master Sets"],
         "summary": "Get all master set prices",
         "responses": {
           "200": {
@@ -63,6 +69,7 @@
         }
       },
       "post": {
+        "tags": ["Master Sets"],
         "summary": "Add a new master set price",
         "responses": {
           "201": {
@@ -73,6 +80,7 @@
     },
     "/masterSets/{id}": {
       "get": {
+        "tags": ["Master Sets"],
         "summary": "Get a master set price by ID",
         "responses": {
           "200": {
@@ -84,6 +92,7 @@
         }
       },
       "put": {
+        "tags": ["Master Sets"],
         "summary": "Update a master set price",
         "responses": {
           "200": {
@@ -92,6 +101,7 @@
         }
       },
       "delete": {
+        "tags": ["Master Sets"],
         "summary": "Delete a master set price",
         "responses": {
           "200": {
