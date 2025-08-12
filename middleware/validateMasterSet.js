@@ -1,5 +1,5 @@
 const saveMasterSet = (req, res, next) => {
-  let { name, cards, price_usd, release_year } = req.body;
+  let { name, cards, price, release_year } = req.body;
 
   // Trim strings
   if (typeof name === 'string') name = name.trim();
@@ -12,8 +12,8 @@ const saveMasterSet = (req, res, next) => {
     return res.status(400).json({ error: 'Cards count must be a positive number' });
   }
 
-  if (price_usd === undefined || typeof price_usd !== 'number' || price_usd < 0) {
-    return res.status(400).json({ error: 'Valid price_usd is required' });
+  if (price === undefined || typeof price !== 'number' || price < 0) {
+    return res.status(400).json({ error: 'Valid price is required' });
   }
 
   // Optional release_year validation
