@@ -53,7 +53,7 @@ const createMasterSet = async (req, res) => {
       .collection('mastersets')
       .insertOne(masterSet);
     if (response.acknowledged) {
-      res.status(201).json(response);
+      res.status(201).json({ message: 'Master Set added successfully' });
     } else {
       res.status(500).json({ error: 'Some error occurred while creating the master set.' });
     }
@@ -78,7 +78,7 @@ const updateMasterSet = async (req, res) => {
       .collection('mastersets')
       .replaceOne({ _id: setId }, masterSet);
     if (response.modifiedCount > 0) {
-      res.status(204).send();
+      res.status(204).json({ message: 'Master Set updated successfully' });
     } else {
       res.status(500).json({ error: 'Some error occurred while updating the master set.' });
     }
@@ -97,7 +97,7 @@ const deleteMasterSet = async (req, res) => {
       .collection('mastersets')
       .deleteOne({ _id: setId });
     if (response.deletedCount > 0) {
-      res.status(204).send();
+      res.status(204).json({ message: 'Master Set deleted successfully' });
     } else {
       res.status(500).json({ error: 'Some error occurred while deleting the master set.' });
     }
