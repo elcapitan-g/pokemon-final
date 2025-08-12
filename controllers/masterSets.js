@@ -45,7 +45,7 @@ const createMasterSet = async (req, res) => {
       cards: req.body.cards,
       percent_completed: req.body.percent_completed
     };
-    const response = await mongodb.getDatabase().collection('mastersets').insertOne(mastersets);
+    const response = await mongodb.getDatabase().collection('mastersets').insertOne(masterSet);
     if (response.acknowledged) {
       res.status(201).json(response);
     } else {
