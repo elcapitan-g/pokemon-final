@@ -5,7 +5,7 @@ const ObjectId = require('mongodb').ObjectId;
 const getAll = async (req, res) => {
   try {
     const result = await mongodb
-      .getDb()
+      .getDatabase()
       .db()
       .collection('cards')
       .find();
@@ -23,7 +23,7 @@ const getSingle = async (req, res) => {
   try {
     const cardId = new ObjectId(req.params.id);
     const result = await mongodb
-      .getDb()
+      .getDatabase()
       .db()
       .collection('cards')
       .find({ _id: cardId });
@@ -47,7 +47,7 @@ const createCard = async (req, res) => {
       condition: req.body.condition
     };
     const response = await mongodb
-      .getDb()
+      .getDatabase()
       .db()
       .collection('cards')
       .insertOne(card);
@@ -73,7 +73,7 @@ const updateCard = async (req, res) => {
       condition: req.body.condition
     };
     const response = await mongodb
-      .getDb()
+      .getDatabase()
       .db()
       .collection('cards')
       .replaceOne({ _id: cardId }, card);
@@ -92,7 +92,7 @@ const deleteCard = async (req, res) => {
   try {
     const cardId = new ObjectId(req.params.id);
     const response = await mongodb
-      .getDb()
+      .getDatabase()
       .db()
       .collection('cards')
       .deleteOne({ _id: cardId });

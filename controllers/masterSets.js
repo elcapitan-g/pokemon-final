@@ -5,7 +5,7 @@ const ObjectId = require('mongodb').ObjectId;
 const getAll = async (req, res) => {
   try {
     const result = await mongodb
-      .getDb()
+      .getDatabase()
       .db()
       .collection('masterSets')
       .find();
@@ -23,7 +23,7 @@ const getSingle = async (req, res) => {
   try {
     const setId = new ObjectId(req.params.id);
     const result = await mongodb
-      .getDb()
+      .getDatabase()
       .db()
       .collection('masterSets')
       .find({ _id: setId });
@@ -46,7 +46,7 @@ const createMasterSet = async (req, res) => {
       price: req.body.price
     };
     const response = await mongodb
-      .getDb()
+      .getDatabase()
       .db()
       .collection('masterSets')
       .insertOne(masterSet);
@@ -71,7 +71,7 @@ const updateMasterSet = async (req, res) => {
       price: req.body.price
     };
     const response = await mongodb
-      .getDb()
+      .getDatabase()
       .db()
       .collection('masterSets')
       .replaceOne({ _id: setId }, masterSet);
@@ -90,7 +90,7 @@ const deleteMasterSet = async (req, res) => {
   try {
     const setId = new ObjectId(req.params.id);
     const response = await mongodb
-      .getDb()
+      .getDatabase()
       .db()
       .collection('masterSets')
       .deleteOne({ _id: setId });
