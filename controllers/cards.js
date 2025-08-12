@@ -78,7 +78,7 @@ const updateCard = async (req, res) => {
       .collection('pokemon')
       .replaceOne({ _id: cardId }, card);
     if (response.modifiedCount > 0) {
-      res.status(204).send();
+      res.status(200).json({ message: 'Card updated successfully' });
     } else {
       res.status(500).json({ error: 'Some error occurred while updating the card.' });
     }
@@ -86,6 +86,7 @@ const updateCard = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 // Delete card
 const deleteCard = async (req, res) => {
