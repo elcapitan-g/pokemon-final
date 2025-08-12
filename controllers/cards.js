@@ -52,7 +52,7 @@ const createCard = async (req, res) => {
       .collection('pokemon')
       .insertOne(card);
     if (response.acknowledged) {
-      res.status(201).json(response);
+      res.status(200).json({ message: 'Card created successfully' });
     } else {
       res.status(500).json({ error: 'Some error occurred while creating the card.' });
     }
@@ -98,7 +98,7 @@ const deleteCard = async (req, res) => {
       .collection('pokemon')
       .deleteOne({ _id: cardId });
     if (response.deletedCount > 0) {
-      res.status(204).send();
+      res.status(200).json({ message: 'Card deleted successfully' });
     } else {
       res.status(500).json({ error: 'Some error occurred while deleting the card.' });
     }
@@ -106,6 +106,7 @@ const deleteCard = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 module.exports = {
   getAll,
