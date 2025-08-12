@@ -126,30 +126,29 @@
         }
       },
       "post": {
-  "tags": ["Master Sets"],
-  "summary": "Add a new master set to your collection",
-  "requestBody": {
-    "required": true,
-    "content": {
-      "application/json": {
-        "schema": {
-          "type": "object",
-          "properties": {
-            "name": { "type": "string", "example": "Base Set" },
-            "price": { "type": "number", "example": 100.0 },
-            "release_year": { "type": "integer", "example": 1999 },
-            "cards": { "type": "integer", "minimum": 1, "example": 102 }
-          },
-          "required": ["name", "price", "cards"]
+        "tags": ["Master Sets"],
+        "summary": "Add a new master set to your collection",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string", "example": "Base Set" },
+                  "price": { "type": "number", "example": 100.0 },
+                  "release_year": { "type": "integer", "example": 1999 },
+                  "cards": { "type": "integer", "minimum": 1, "example": 102 }
+                },
+                "required": ["name", "price", "cards"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Master set created" },
+          "400": { "description": "Invalid input" }
         }
-      }
-    }
-  },
-  "responses": {
-    "201": { "description": "Master set created" },
-    "400": { "description": "Invalid input" }
-  }
-}
       }
     },
     "/masterSets/{id}": {
@@ -166,7 +165,7 @@
       ],
       "get": {
         "tags": ["Master Sets"],
-        "summary": "Get a master set by ID",
+        "summary": "Get a master set price by ID",
         "responses": {
           "200": {
             "description": "Master set found"
@@ -191,7 +190,7 @@
                   "release_year": { "type": "integer", "example": 1999 },
                   "cards": { "type": "integer", "minimum": 1, "example": 102 }
                 },
-                "required": ["name", "price","cards"]
+                "required": ["name", "price", "cards"]
               }
             }
           }
@@ -213,4 +212,4 @@
       }
     }
   }
-
+}
