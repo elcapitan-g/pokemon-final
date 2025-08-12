@@ -136,9 +136,9 @@
                 "type": "object",
                 "properties": {
                   "name": { "type": "string", "example": "Base Set" },
-                  "price": { "type": "number", "example": 100.0 },
-                  "release_year": { "type": "integer", "example": 1999 },
-                  "cards": { "type": "integer", "minimum": 1, "example": 102 }
+                  "year": { "type": "integer", "example": 1999 },
+                  "cards": { "type": "integer", "minimum": 1, "example": 102 },
+                  "percent_completed": { "type": "integer", "minimum": 0, "maximum": 100, "example": 100 }
                 },
                 "required": ["name", "price", "cards"]
               }
@@ -186,9 +186,9 @@
                 "type": "object",
                 "properties": {
                   "name": { "type": "string", "example": "Base Set" },
-                  "price": { "type": "number", "example": 100.0 },
-                  "release_year": { "type": "integer", "example": 1999 },
-                  "cards": { "type": "integer", "minimum": 1, "example": 102 }
+                  "year": { "type": "integer", "example": 1999 },
+                  "cards": { "type": "integer", "minimum": 1, "example": 102 },
+                  "percent_completed": { "type": "integer", "minimum": 0, "maximum": 100, "example": 100 }
                 },
                 "required": ["name", "price", "cards"]
               }

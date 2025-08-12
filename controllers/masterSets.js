@@ -41,15 +41,11 @@ const createMasterSet = async (req, res) => {
   try {
     const masterSet = {
       name: req.body.name,
-      releaseDate: req.body.releaseDate,
-      totalCards: req.body.totalCards,
-      price: req.body.price
+      year: req.body.year,
+      cards: req.body.cards,
+      percent_completed: req.body.percent_completed
     };
-    const response = await mongodb
-      .getDatabase()
-      .db()
-      .collection('mastersets')
-      .insertOne(masterSet);
+    const response = await mongodb.getDatabase().collection('masterSets').insertOne(masterSet);
     if (response.acknowledged) {
       res.status(201).json(response);
     } else {
@@ -66,9 +62,9 @@ const updateMasterSet = async (req, res) => {
     const setId = new ObjectId(req.params.id);
     const masterSet = {
       name: req.body.name,
-      releaseDate: req.body.releaseDate,
-      totalCards: req.body.totalCards,
-      price: req.body.price
+      year: req.body.year,
+      cards: req.body.cards,
+      percent_completed: req.body.percent_completed
     };
     const response = await mongodb
       .getDatabase()

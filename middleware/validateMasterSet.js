@@ -1,5 +1,5 @@
 const saveMasterSet = (req, res, next) => {
-  let { name, cards, price, release_year } = req.body;
+  let { name, cards, percent_completed, year } = req.body;
 
   // Trim strings
   if (typeof name === 'string') name = name.trim();
@@ -12,25 +12,31 @@ const saveMasterSet = (req, res, next) => {
     return res.status(400).json({ error: 'Cards count must be a positive number' });
   }
 
-  if (price === undefined || typeof price !== 'number' || price < 0) {
-    return res.status(400).json({ error: 'Valid price is required' });
+  if (
+    percent_completed === undefined ||
+    typeof percent_completed !== 'number' ||
+    !Number.isInteger(percent_completed) ||
+    percent_completed < 0 ||
+    percent_completed > 100
+  ) {
+    return res.status(400).json({ error: 'Percent completed must be an integer between 0 and 100' });
   }
 
-  // Optional release_year validation
-  if (release_year !== undefined) {
+  // Optional year validation
+  if (year !== undefined) {
     if (
-      typeof release_year !== 'number' ||
-      !Number.isInteger(release_year) ||
-      release_year < 1980 ||
-      release_year > new Date().getFullYear() + 1
+      typeof year !== 'number' ||
+      !Number.isInteger(year) ||
+      year < 1980 ||
+      year > new Date().getFullYear() + 1
     ) {
-      return res.status(400).json({ error: 'Valid release_year is required' });
+      return res.status(400).json({ error: 'Valid year is required' });
     }
   }
 
   // Assign trimmed back
   req.body.name = name;
-  req.body.release_year = release_year;
+  req.body.year = year;
 
   next();
 };
