@@ -8,17 +8,17 @@
   "paths": {
     "/cards": {
       "get": {
-        "tags": ["Pokemon Cards"],
-        "summary": "Get all Pokémon cards",
+        "tags": ["Your Pokemon Cards"],
+        "summary": "Get all of your Pokémon cards",
         "responses": {
           "200": {
-            "description": "List of Pokémon cards"
+            "description": "List of your Pokémon cards"
           }
         }
       },
       "post": {
-        "tags": ["Pokemon Cards"],
-        "summary": "Add a new Pokémon card",
+        "tags": ["Your Pokemon Cards"],
+        "summary": "Add a new Pokémon card to your collection",
         "responses": {
           "201": {
             "description": "Card created successfully"
@@ -28,7 +28,7 @@
     },
     "/cards/{id}": {
       "get": {
-        "tags": ["Pokemon Cards"],
+        "tags": ["Your Pokemon Cards"],
         "summary": "Get a Pokémon card by ID",
         "responses": {
           "200": {
@@ -40,8 +40,8 @@
         }
       },
       "put": {
-        "tags": ["Pokemon Cards"],
-        "summary": "Update a Pokémon card",
+        "tags": ["Your Pokemon Cards"],
+        "summary": "Update one of your Pokémon card",
         "responses": {
           "200": {
             "description": "Card updated"
@@ -49,8 +49,8 @@
         }
       },
       "delete": {
-        "tags": ["Pokemon Cards"],
-        "summary": "Delete a Pokémon card",
+        "tags": ["Your Pokemon Cards"],
+        "summary": "Delete one of your Pokémon card",
         "responses": {
           "200": {
             "description": "Card deleted"
