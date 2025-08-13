@@ -81,13 +81,19 @@ app.get('/logout', (req, res) => {
 app.get('/', (req, res) => {
   if (req.isAuthenticated()) {
     res.send(`
-      <h2>Welcome, ${req.user.displayName || req.user.username}!</h2>
-      <p><a href="/logout">Logout</a></p>
+      <div style="text-align:center; margin-top:50px;">
+        <h2>Welcome back, ${req.user.displayName || req.user.username}!</h2>
+        <img src="/images/welcomeback.png" alt="Welcome " style="max-width:300px; margin: 20px auto;" />
+        <p>
+          <a href="/api-docs" style="display:inline-block; margin:10px; padding:10px 20px; background:#28a745; color:white; border-radius:5px; text-decoration:none;">View your collection</a>
+          <a href="/logout" style="display:inline-block; margin:10px; padding:10px 20px; background:#dc3545; color:white; border-radius:5px; text-decoration:none;">Logout</a>
+        </p>
+      </div>
     `);
   } else {
     res.send(`
       <div style="text-align:center; margin-top:50px;">
-        <h2>You are not logged in.</h2>
+        <h2>You are not logged in trainer.</h2>
         <img src="/images/welcome.png" alt="Welcome" style="max-width:300px; margin: 20px auto;" />
         <p><a href="/auth/github" style="font-size: 18px;">Please login with GitHub to view your collection</a></p>
       </div>
