@@ -13,6 +13,14 @@
     {
       "name": "Master Sets",
       "description": "Manage and view master set price data."
+    },
+    {
+      "name": "Chase Cards",
+      "description": "Manage and view your Dream cards."
+    },
+    {
+      "name": "ETB",
+      "description": "Manage and view your sealed Elite Trainer Boxes."
     }
   ],
   "paths": {
@@ -61,21 +69,15 @@
           "in": "path",
           "required": true,
           "description": "ID of the Pokémon card",
-          "schema": {
-            "type": "string"
-          }
+          "schema": { "type": "string" }
         }
       ],
       "get": {
         "tags": ["Your Pokemon Cards"],
         "summary": "Get a Pokémon card by ID",
         "responses": {
-          "200": {
-            "description": "Pokémon card found"
-          },
-          "404": {
-            "description": "Card not found"
-          }
+          "200": { "description": "Pokémon card found" },
+          "404": { "description": "Card not found" }
         }
       },
       "put": {
@@ -100,18 +102,14 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "Card updated"
-          }
+          "200": { "description": "Card updated" }
         }
       },
       "delete": {
         "tags": ["Your Pokemon Cards"],
         "summary": "Delete one of your Pokémon card",
         "responses": {
-          "200": {
-            "description": "Card deleted"
-          }
+          "200": { "description": "Card deleted" }
         }
       }
     },
@@ -120,9 +118,7 @@
         "tags": ["Master Sets"],
         "summary": "Get all master sets",
         "responses": {
-          "200": {
-            "description": "List of master sets"
-          }
+          "200": { "description": "List of master sets" }
         }
       },
       "post": {
@@ -140,7 +136,7 @@
                   "cards": { "type": "integer", "minimum": 1, "example": 102 },
                   "percent_completed": { "type": "integer", "minimum": 0, "maximum": 100, "example": 100 }
                 },
-                "required": ["name", "price", "cards"]
+                "required": ["name", "cards"]
               }
             }
           }
@@ -158,21 +154,15 @@
           "in": "path",
           "required": true,
           "description": "ID of the master set",
-          "schema": {
-            "type": "string"
-          }
+          "schema": { "type": "string" }
         }
       ],
       "get": {
         "tags": ["Master Sets"],
         "summary": "Get a master set price by ID",
         "responses": {
-          "200": {
-            "description": "Master set found"
-          },
-          "404": {
-            "description": "Master set not found"
-          }
+          "200": { "description": "Master set found" },
+          "404": { "description": "Master set not found" }
         }
       },
       "put": {
@@ -190,24 +180,190 @@
                   "cards": { "type": "integer", "minimum": 1, "example": 102 },
                   "percent_completed": { "type": "integer", "minimum": 0, "maximum": 100, "example": 100 }
                 },
-                "required": ["name", "price", "cards"]
+                "required": ["name", "cards"]
               }
             }
           }
         },
         "responses": {
-          "200": {
-            "description": "Master set updated"
-          }
+          "200": { "description": "Master set updated" }
         }
       },
       "delete": {
         "tags": ["Master Sets"],
         "summary": "Delete a master set price",
         "responses": {
-          "200": {
-            "description": "Master set deleted"
+          "200": { "description": "Master set deleted" }
+        }
+      }
+    },
+
+    "/chase": {
+      "get": {
+        "tags": ["Chase Cards"],
+        "summary": "Get all dream/chase cards",
+        "responses": {
+          "200": { "description": "List of chase cards" }
+        }
+      },
+      "post": {
+        "tags": ["Chase Cards"],
+        "summary": "Add a new chase card",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string", "example": "Base Set 1st Edition Holo Charizard (Shadowless)" },
+                  "set": { "type": "string", "example": "Base Set" },
+                  "psa10_price_usd": { "type": "number", "example": 420000 },
+                  "year": { "type": "integer", "example": 1999 }
+                },
+                "required": ["name", "set", "psa10_price_usd", "year"]
+              }
+            }
           }
+        },
+        "responses": {
+          "201": { "description": "Chase card created" },
+          "400": { "description": "Invalid input" }
+        }
+      }
+    },
+    "/chase/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the chase card",
+          "schema": { "type": "string" }
+        }
+      ],
+      "get": {
+        "tags": ["Chase Cards"],
+        "summary": "Get a chase card by ID",
+        "responses": {
+          "200": { "description": "Chase card found" },
+          "404": { "description": "Chase card not found" }
+        }
+      },
+      "put": {
+        "tags": ["Chase Cards"],
+        "summary": "Update a chase card",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "set": { "type": "string" },
+                  "psa10_price_usd": { "type": "number" },
+                  "year": { "type": "integer" }
+                },
+                "required": ["name", "set", "psa10_price_usd", "year"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Chase card updated" },
+          "400": { "description": "Invalid input" }
+        }
+      },
+      "delete": {
+        "tags": ["Chase Cards"],
+        "summary": "Delete a chase card",
+        "responses": {
+          "200": { "description": "Chase card deleted" }
+        }
+      }
+    },
+
+    "/etb": {
+      "get": {
+        "tags": ["ETB"],
+        "summary": "Get all your Elite Trainer Box",
+        "responses": {
+          "200": { "description": "List of your ETBs" }
+        }
+      },
+      "post": {
+        "tags": ["ETB"],
+        "summary": "Add a new Elite Trainer Box price",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string", "example": "151 Elite Trainer Box" },
+                  "year": { "type": "integer", "example": 2021 },
+                  "price_usd": { "type": "number", "example": 302.3 }
+                },
+                "required": ["name", "year", "price_usd"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "ETB added to your collection" },
+          "400": { "description": "Invalid input" }
+        }
+      }
+    },
+    "/etb/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the Elite Trainer Box ",
+          "schema": { "type": "string" }
+        }
+      ],
+      "get": {
+        "tags": ["ETB"],
+        "summary": "Get an ETB by ID",
+        "responses": {
+          "200": { "description": "ETB price found" },
+          "404": { "description": "ETB price not found" }
+        }
+      },
+      "put": {
+        "tags": ["ETB"],
+        "summary": "Update an ETB ",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "year": { "type": "integer" },
+                  "price_usd": { "type": "number" }
+                },
+                "required": ["name", "year", "price_usd"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "ETB price updated" },
+          "400": { "description": "Invalid input" }
+        }
+      },
+      "delete": {
+        "tags": ["ETB"],
+        "summary": "Delete an ETB price",
+        "responses": {
+          "200": { "description": "ETB price deleted" }
         }
       }
     }

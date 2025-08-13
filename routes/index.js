@@ -11,6 +11,8 @@ router.use('/', require('./swagger'));
 
 router.use('/cards', require('./cards'));
 router.use('/masterSets', require('./masterSets'));
+router.use('/chase', require('./chase'));
+router.use('/etb', require('./etbRoutes'));
 
 router.get('/login', passport.authenticate('github'), (req, rest) => {});
 

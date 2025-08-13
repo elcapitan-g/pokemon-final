@@ -1,0 +1,82 @@
+const mongodb = require('../data/database');
+const ObjectId = require('mongodb').ObjectId;
+
+const getAllETBs = async (req, res) => {
+  try {
+    const result = await mongodb.getDatabase().db().collection('etb').find();
+    const etbs = await result.toArray();
+    res.status(200).json(etbs);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+const getETBById = async (req, res) => {
+  try {
+    const etbId = new ObjectId(req.params.id);
+    const etb = await mongodb.getDatabase().db().collection('etb').findOne({ _id: etbId });
+    if (!etb) return res.status(404).json({ error: 'ETB not found' });
+    res.status(200).json(etb);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+const createETB = async (req, res) => {
+  try {
+    const etb = {
+      name: req.body.name,
+      year: req.body.year,
+      price_usd: req.body.price_usd
+    };
+    const response = await mongodb.getDatabase().db().collection('etb').insertOne(etb);
+    if (response.acknowledged) {
+      res.status(201).json(response);
+    } else {
+      res.status(500).json({ error: 'Error creating ETB' });
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+const updateETB = async (req, res) => {
+  try {
+    const etbId = new ObjectId(req.params.id);
+    const etb = {
+      name: req.body.name,
+      year: req.body.year,
+      price_usd: req.body.price_usd
+    };
+    const response = await mongodb.getDatabase().db().collection('etb').replaceOne({ _id: etbId }, etb);
+    if (response.modifiedCount > 0) {
+      res.status(200).send();
+    } else {
+      res.status(500).json({ error: 'Error updating ETB' });
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+const deleteETB = async (req, res) => {
+  try {
+    const etbId = new ObjectId(req.params.id);
+    const response = await mongodb.getDatabase().db().collection('etb').deleteOne({ _id: etbId });
+    if (response.deletedCount > 0) {
+      res.status(200).send();
+    } else {
+      res.status(500).json({ error: 'Error deleting ETB' });
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+module.exports = {
+  getAllETBs,
+  getETBById,
+  createETB,
+  updateETB,
+  deleteETB,
+};

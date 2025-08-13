@@ -10,7 +10,10 @@ const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// --- Middleware ---
+// Public image folder
+app.use(express.static('public'));
+
+// Middleware
 app.use(cors({
   origin: '*',
   methods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH', 'OPTIONS'],
@@ -29,10 +32,26 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Routes 
-app.use('/', require('./routes')); 
+// 🔹 Restrict POST, PUT, DELETE to logged-in users
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  return res.status(403).json({ error: 'You must be logged in to perform this action.' });
+}
 
-// Passport 
+// Apply middleware only to these methods
+app.use((req, res, next) => {
+  if (['POST', 'PUT', 'DELETE'].includes(req.method)) {
+    return ensureAuthenticated(req, res, next);
+  }
+  next();
+});
+
+// Routes
+app.use('/', require('./routes'));
+
+// Passport
 passport.use(new GitHubStrategy({
   clientID: process.env.GITHUB_CLIENT_ID,
   clientSecret: process.env.GITHUB_CLIENT_SECRET,
@@ -44,7 +63,7 @@ passport.use(new GitHubStrategy({
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
 
-// Auth 
+// Auth
 app.get('/auth/github', passport.authenticate('github', { scope: ['user:email'] }));
 
 app.get('/auth/github/callback',
@@ -61,13 +80,22 @@ app.get('/logout', (req, res) => {
 
 app.get('/', (req, res) => {
   if (req.isAuthenticated()) {
-    res.send(`<h2>Welcome, ${req.user.displayName || req.user.username}!</h2><p><a href="/logout">Logout</a></p>`);
+    res.send(`
+      <h2>Welcome, ${req.user.displayName || req.user.username}!</h2>
+      <p><a href="/logout">Logout</a></p>
+    `);
   } else {
-    res.send(`<h2>You are not logged in.</h2><p><a href="/auth/github">Login with GitHub</a></p>`);
+    res.send(`
+      <div style="text-align:center; margin-top:50px;">
+        <h2>You are not logged in.</h2>
+        <img src="/images/welcome.png" alt="Welcome" style="max-width:300px; margin: 20px auto;" />
+        <p><a href="/auth/github" style="font-size: 18px;">Please login with GitHub to view your collection</a></p>
+      </div>
+    `);
   }
 });
 
-//  DB 
+// DB
 mongodb.initDb((err) => {
   if (err) {
     console.error(err);
