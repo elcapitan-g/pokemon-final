@@ -58,7 +58,10 @@
         "responses": {
           "201": {
             "description": "Card created successfully"
-          }
+          },
+            "401": {
+    "description": "You must be logged in to perform this action."
+  }
         }
       }
     },
@@ -102,14 +105,20 @@
           }
         },
         "responses": {
-          "200": { "description": "Card updated" }
+          "200": { "description": "Card updated" },
+            "401": {
+    "description": "You must be logged in to perform this action."
+  }
         }
       },
       "delete": {
         "tags": ["Your Pokemon Cards"],
         "summary": "Delete one of your Pokémon card",
         "responses": {
-          "200": { "description": "Card deleted" }
+          "200": { "description": "Card deleted" },
+            "401": {
+    "description": "You must be logged in to perform this action."
+  }
         }
       }
     },
@@ -143,7 +152,8 @@
         },
         "responses": {
           "201": { "description": "Master set created" },
-          "400": { "description": "Invalid input" }
+          "400": { "description": "Invalid input" },
+          "401": {"description": "You must be logged in to perform this action."}
         }
       }
     },
@@ -162,7 +172,8 @@
         "summary": "Get a master set price by ID",
         "responses": {
           "200": { "description": "Master set found" },
-          "404": { "description": "Master set not found" }
+          "404": { "description": "Master set not found" },
+          "401": {"description": "You must be logged in to perform this action."}
         }
       },
       "put": {
@@ -186,14 +197,16 @@
           }
         },
         "responses": {
-          "200": { "description": "Master set updated" }
+          "200": { "description": "Master set updated" },
+          "401": {"description": "You must be logged in to perform this action."}
         }
       },
       "delete": {
         "tags": ["Master Sets"],
         "summary": "Delete a master set price",
         "responses": {
-          "200": { "description": "Master set deleted" }
+          "200": { "description": "Master set deleted" },
+          "401": {"description": "You must be logged in to perform this action."}
         }
       }
     },
@@ -228,7 +241,8 @@
         },
         "responses": {
           "201": { "description": "Chase card created" },
-          "400": { "description": "Invalid input" }
+          "400": { "description": "Invalid input" },
+          "401": {"description": "You must be logged in to perform this action."}
         }
       }
     },
@@ -272,14 +286,16 @@
         },
         "responses": {
           "200": { "description": "Chase card updated" },
-          "400": { "description": "Invalid input" }
+          "400": { "description": "Invalid input" },
+          "401": {"description": "You must be logged in to perform this action."}
         }
       },
       "delete": {
         "tags": ["Chase Cards"],
         "summary": "Delete a chase card",
         "responses": {
-          "200": { "description": "Chase card deleted" }
+          "200": { "description": "Chase card deleted" },
+          "401": {"description": "You must be logged in to perform this action."}
         }
       }
     },
@@ -313,7 +329,8 @@
         },
         "responses": {
           "201": { "description": "ETB added to your collection" },
-          "400": { "description": "Invalid input" }
+          "400": { "description": "Invalid input" },
+          "401": {"description": "You must be logged in to perform this action."}
         }
       }
     },
@@ -356,14 +373,16 @@
         },
         "responses": {
           "200": { "description": "ETB price updated" },
-          "400": { "description": "Invalid input" }
+          "400": { "description": "Invalid input" },
+          "401": {"description": "You must be logged in to perform this action."}
         }
       },
       "delete": {
         "tags": ["ETB"],
         "summary": "Delete an ETB price",
         "responses": {
-          "200": { "description": "ETB price deleted" }
+          "200": { "description": "ETB price deleted" },
+          "401": {"description": "You must be logged in to perform this action."}
         }
       }
     }
