@@ -6,7 +6,7 @@ router.use('/', require('./swagger'));
 
 //router.get('/', (req, res) => {
     //#sagger.tage['Gotta catch em all!']
-  //res.send('Gotta cathc em all');
+  //res.send('Gotta catch em all');
 //});
 
 router.use('/cards', require('./cards'));

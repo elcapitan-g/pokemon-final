@@ -1,12 +1,11 @@
 const saveCard = (req, res, next) => {
   let { name, setName, rarity, price, release_year } = req.body;
 
-  // Trim strings if they exist
   if (typeof name === 'string') name = name.trim();
   if (typeof setName === 'string') setName = setName.trim();
   if (typeof rarity === 'string') rarity = rarity.trim();
 
-  // Validate required string fields
+  // Validate 
   if (!name) {
     return res.status(400).json({ error: 'Card name is required' });
   }
@@ -24,7 +23,7 @@ const saveCard = (req, res, next) => {
     return res.status(400).json({ error: 'Valid price is required' });
   }
 
-  // Validate release_year (optional but if provided must be reasonable)
+  // Validate year 
   if (release_year !== undefined) {
     if (
       typeof release_year !== 'number' ||
@@ -36,7 +35,7 @@ const saveCard = (req, res, next) => {
     }
   }
 
-  // Update req.body with trimmed values
+
   req.body.name = name;
   req.body.setName = setName;
   req.body.rarity = rarity;

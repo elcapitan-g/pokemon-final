@@ -29,10 +29,10 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// --- Routes ---
-app.use('/', require('./routes')); // <-- Make sure routes/index.js loads /cards
+// Routes 
+app.use('/', require('./routes')); 
 
-// --- Passport GitHub Strategy ---
+// Passport 
 passport.use(new GitHubStrategy({
   clientID: process.env.GITHUB_CLIENT_ID,
   clientSecret: process.env.GITHUB_CLIENT_SECRET,
@@ -44,7 +44,7 @@ passport.use(new GitHubStrategy({
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
 
-// --- Auth Routes ---
+// Auth 
 app.get('/auth/github', passport.authenticate('github', { scope: ['user:email'] }));
 
 app.get('/auth/github/callback',
@@ -67,7 +67,7 @@ app.get('/', (req, res) => {
   }
 });
 
-// --- DB Connection ---
+//  DB 
 mongodb.initDb((err) => {
   if (err) {
     console.error(err);

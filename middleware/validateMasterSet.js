@@ -1,7 +1,7 @@
 const saveMasterSet = (req, res, next) => {
   let { name, cards, percent_completed, year } = req.body;
 
-  // Trim strings
+
   if (typeof name === 'string') name = name.trim();
 
   if (!name) {
@@ -22,7 +22,7 @@ const saveMasterSet = (req, res, next) => {
     return res.status(400).json({ error: 'Percent completed must be an integer between 0 and 100' });
   }
 
-  // Optional year validation
+  // year validation
   if (year !== undefined) {
     if (
       typeof year !== 'number' ||
@@ -34,7 +34,7 @@ const saveMasterSet = (req, res, next) => {
     }
   }
 
-  // Assign trimmed back
+  
   req.body.name = name;
   req.body.year = year;
 
